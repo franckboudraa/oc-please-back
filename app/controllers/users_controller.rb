@@ -12,7 +12,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    @current_user.update(identity: params[:identity])
+    if @current_user.valid? && @current_user.save
+      return render status: 200
+    else
+      return render json: {errors: @current_user.errors}, status: 500
+    end
+  end
+
   def current
     render json: @current_user.attributes.except("password_digest")
   end
+
 end
