@@ -3,6 +3,16 @@ class RequestsController < ApplicationController
     @requests = Request.where(status: :unfulfilled)
   end
 
+  def show
+    @request = Request.find_by_id(params[:id])
+
+    if @request
+      return render json: {request:@request}, status:200
+    else
+      return render status: 404
+    end
+  end
+
   def create
     @request = Request.new(address: params[:address],
                            title: params[:title],
