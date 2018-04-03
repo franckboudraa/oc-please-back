@@ -23,7 +23,10 @@ gem 'puma', '~> 3.7'
  gem 'jwt'
 
  # Services (used for authentication)
+#
  gem 'simple_command'
+ # Geocoding
+ gem 'geocoder'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
