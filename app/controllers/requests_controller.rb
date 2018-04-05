@@ -10,16 +10,15 @@ class RequestsController < ApplicationController
     box = params[:params][:box]
 
     bounds = [box[:sw][:lat], box[:sw][:lng], box[:ne][:lat], box[:ne][:lng]]
-    @requests = Request.includes(:user).where(status: :unfulfilled).within_bounding_box(bounds)
-
-    return render json: @requests, :include => {:user => {:only => [:first_name, :last_name]}}, :except => [:status, :updated_at]
+    @requests = Request.includes(:user, :volunteers).where(status: :unfulfilled).within_bounding_box(bounds)
+    return render json: @requests, :include => {:user => {:only => [:first_name, :last_name]}, :volunteers => {:only => [:id]}}, :except => [:status, :updated_at]
   end
 
   def show
-    @request = Request.includes(:user).find_by_id(params[:id])
+    @request = Request.includes(:user, :volunteers).find_by_id(params[:id])
 
     if @request
-      return render json: @request, :include => {:user => {:only => [:first_name, :last_name]}}
+      return render json: @request, :include => {:user => {:only => [:first_name, :last_name]}, :volunteers => {:only => [:id]}}
     else
       return render status: 404
     end
