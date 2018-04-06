@@ -3,5 +3,8 @@ Rails.application.routes.draw do
   post 'authenticate', to: 'authentication#authenticate'
   get '/users/current', to: 'users#current'
   post '/requests/within', to: 'requests#within'
-  resources :users, :requests
+  resources :users do
+    resources :requests
+  end
+  resources :requests
 end

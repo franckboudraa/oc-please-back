@@ -25,4 +25,7 @@ class UsersController < ApplicationController
     render json: @current_user.attributes.except("password_digest")
   end
 
+  def requests
+  end
+
 end

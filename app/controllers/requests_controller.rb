@@ -1,9 +1,12 @@
 class RequestsController < ApplicationController
   def index
-    #@requests = Request.near([params[:lat], params[:lng]], params[:distance]).where(status: :unfulfilled)
-    #@requests = Request.within_bounding_box(params[:box]).where(status: :unfulfilled)
+    if params[:user_id]
+      @requests = Request.includes(:user, :volunteers).where(user_id: params[:user_id]).order('id DESC')
+    else
+      @requests = Request.all
+    end
 
-    #return render json: @requests
+    return render json: @requests, :include => {:user => {:only => [:first_name, :last_name]}, :volunteers => {:only => [:id]}}
   end
 
   def within
@@ -43,5 +46,18 @@ class RequestsController < ApplicationController
 
   def update
 
+  end
+
+  def destroy
+    @request = Request.find_by_id(params[:id])
+
+    return render status: 404 unless @request
+
+    if @request.user_id == @current_user.id
+      @request.destroy
+      return render status: 200
+    else
+      return render status: 403
+    end
   end
 end
