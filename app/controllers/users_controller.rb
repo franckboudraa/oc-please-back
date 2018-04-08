@@ -28,4 +28,14 @@ class UsersController < ApplicationController
   def requests
   end
 
+  def show
+    @user = User.find_by_id(params[:id])
+
+    if @user
+      return render json: @user.attributes.except("password_digest")
+    else
+      return render status: 404
+    end
+  end
+
 end
