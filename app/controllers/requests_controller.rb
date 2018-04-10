@@ -1,4 +1,6 @@
 class RequestsController < ApplicationController
+  skip_before_action :authenticate_request, only: [:show]
+
   def index
     if params[:user_id]
       @requests = Request.includes(:user, :volunteers).where(user_id: params[:user_id]).order('id DESC')
