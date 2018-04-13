@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180330114914) do
+ActiveRecord::Schema.define(version: 20180412102229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "user_id"
+    t.text "content"
+    t.bigint "volunteer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_messages_on_user_id"
+    t.index ["volunteer_id"], name: "index_messages_on_volunteer_id"
+  end
 
   create_table "requests", force: :cascade do |t|
     t.string "title"
@@ -50,6 +60,8 @@ ActiveRecord::Schema.define(version: 20180330114914) do
     t.index ["user_id"], name: "index_volunteers_on_user_id"
   end
 
+  add_foreign_key "messages", "users"
+  add_foreign_key "messages", "volunteers"
   add_foreign_key "requests", "users"
   add_foreign_key "volunteers", "requests"
   add_foreign_key "volunteers", "users"

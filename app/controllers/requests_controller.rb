@@ -8,7 +8,7 @@ class RequestsController < ApplicationController
       @requests = Request.all
     end
 
-    return render json: @requests, :include => {:user => {:only => [:first_name, :last_name]}, :volunteers => {:only => [:id]}}
+    return render json: @requests, :include => {:user => {:only => [:first_name, :last_name]}, :volunteers => {:only => [:user_id]}}
   end
 
   def within
@@ -23,7 +23,7 @@ class RequestsController < ApplicationController
     @request = Request.includes(:user, :volunteers).find_by_id(params[:id])
 
     if @request
-      return render json: @request, :include => {:user => {:only => [:first_name, :last_name]}, :volunteers => {:only => [:id]}}
+      return render json: @request, :include => {:user => {:only => [:first_name, :last_name]}, :volunteers => {:only => [:user_id]}}
     else
       return render status: 404
     end
@@ -35,9 +35,8 @@ class RequestsController < ApplicationController
                            description: params[:description],
                            lat: params[:lat],
                            lng: params[:lng],
-                           reqtype: params[:reqtype])
-
-    @request.user_id = @current_user.id
+                           reqtype: params[:reqtype],
+                           user_id: @current_user.id)
 
     if @request.valid? && @request.save
       return render json: {id: @request.id}
