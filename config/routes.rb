@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   resources :requests do
     resources :volunteers
   end
+
+  resources :volunteers
 end

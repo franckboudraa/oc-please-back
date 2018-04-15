@@ -1,9 +1,31 @@
 class VolunteersController < ApplicationController
-  before_action :volunteer_id_needed, only: [:show, :update, :destroy]
-  before_action :request_id_needed, only: [:create]
+  before_action :volunteer_id_needed, only: [:update, :destroy]
+  before_action :request_id_needed, only: [:index, :create]
 
   def index
-    return render status: 200
+    @request = Request.includes(:volunteers, :messages, :user).find_by_id(params[:request_id])
+
+    if @request.user_id != @current_user.id
+      return render status: 403
+    end
+
+    return render json: @request, :include => {
+        :volunteers => {
+            :only => [:id, :user_id, :status],
+            :include => {
+                :messages => {
+                :include => {
+                    :user => {
+                        :only => [:id, :first_name, :last_name]
+                    }
+                }
+            },
+                :user => {
+                    :only => [:id, :first_name, :last_name]
+                }
+            }
+        },
+    }
   end
 
   def create

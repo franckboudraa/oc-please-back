@@ -23,7 +23,18 @@ class RequestsController < ApplicationController
     @request = Request.includes(:user, :volunteers).find_by_id(params[:id])
 
     if @request
-      return render json: @request, :include => {:user => {:only => [:first_name, :last_name]}, :volunteers => {:only => [:user_id]}}
+      return render json: @request, :include => {
+          :user => {
+              :only => [:id, :first_name, :last_name]},
+          :volunteers => {
+              :only => [:id, :status, :created_at],
+              :include => {
+                  :user => {
+                      :only => [:id, :first_name, :last_name]
+                  }
+              }
+          }
+      }
     else
       return render status: 404
     end
