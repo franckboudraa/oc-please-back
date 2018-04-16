@@ -16,7 +16,7 @@ class VolunteersController < ApplicationController
                 :messages => {
                 :include => {
                     :user => {
-                        :only => [:id, :first_name, :last_name]
+                        :only => [:id, :first_name, :last_name, :email]
                     }
                 }
             },

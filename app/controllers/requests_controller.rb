@@ -25,7 +25,7 @@ class RequestsController < ApplicationController
     if @request
       return render json: @request, :include => {
           :user => {
-              :only => [:id, :first_name, :last_name]},
+              :only => [:id, :first_name, :last_name, :email]},
           :volunteers => {
               :only => [:id, :status, :created_at],
               :include => {
