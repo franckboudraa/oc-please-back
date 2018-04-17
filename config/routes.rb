@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   end
 
   resources :volunteers
+
+  resources :messages
 end
