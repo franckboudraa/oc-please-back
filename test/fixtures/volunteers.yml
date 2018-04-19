@@ -1,11 +1,1 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  request: one
-  user: one
-  status: 1
-
-two:
-  request: two
-  user: two
-  status: 1

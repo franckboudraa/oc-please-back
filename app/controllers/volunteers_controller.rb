@@ -58,6 +58,16 @@ class VolunteersController < ApplicationController
 
   end
 
+  def proposals
+    @proposals = Request.joins(:volunteers).where('volunteers.user_id = ?', @current_user.id)
+
+    if @proposals
+      return render json: @proposals, :include => [:volunteers]
+    else
+      return render 404
+    end
+  end
+
   private
 
   def volunteer_id_needed
