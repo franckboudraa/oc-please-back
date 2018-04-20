@@ -55,6 +55,12 @@ class VolunteersController < ApplicationController
   end
 
   def destroy
+    @volunteer = Volunteer.where('volunteers.request_id = ? AND volunteers.user_id = ?', params[:id], @current_user.id)
+
+    return render status: 404 unless @volunteer
+
+    @volunteer.destroy_all
+    return render status: 200
 
   end
 
