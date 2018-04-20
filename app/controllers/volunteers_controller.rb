@@ -1,6 +1,6 @@
 class VolunteersController < ApplicationController
   before_action :volunteer_id_needed, only: [:update, :destroy]
-  before_action :request_id_needed, only: [:index, :create]
+  before_action :request_id_needed, only: [:index, :create, :update]
 
   def index
     @request = Request.includes(:volunteers, :messages, :user).find_by_id(params[:request_id])
@@ -51,7 +51,26 @@ class VolunteersController < ApplicationController
   end
 
   def update
+    @request = Request.find_by_id(params[:request_id])
+    @volunteer = Volunteer.find_by_id(params[:id])
 
+    if @request.user_id == @current_user.id || @volunteer.user_id == @current_user.id
+      @request.status = 'fulfilled'
+      @volunteer.status = 'accepted'
+
+      if @request.save && @volunteer.save
+        @otherVolunteers = Volunteer.where.not(id: params[:id])
+        @otherVolunteers.each do |vol|
+          vol.status = 'declined'
+          vol.save
+        end
+        return render status: 200
+      else
+        return render status: 400
+      end
+    else
+      return render status: 403
+    end
   end
 
   def destroy
