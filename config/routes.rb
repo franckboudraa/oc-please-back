@@ -12,7 +12,9 @@ Rails.application.routes.draw do
     resources :volunteers
   end
 
-  resources :volunteers
+  resources :volunteers do
+    resources :messages
+  end
 
   resources :messages
 end

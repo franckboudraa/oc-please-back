@@ -8,7 +8,7 @@ class RequestsController < ApplicationController
       @requests = Request.all
     end
 
-    return render json: @requests, :include => {:user => {:only => [:first_name, :last_name]}, :volunteers => {:only => [:user_id, :created_at]}}
+    return render json: @requests, :include => {:user => {:only => [:first_name, :last_name]}, :volunteers => {:only => [:id, :user_id, :created_at]}}
   end
 
   def within
