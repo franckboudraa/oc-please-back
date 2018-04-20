@@ -8,12 +8,11 @@ class RequestsController < ApplicationController
       @requests = Request.all
     end
 
-    return render json: @requests, :include => {:user => {:only => [:first_name, :last_name]}, :volunteers => {:only => [:user_id]}}
+    return render json: @requests, :include => {:user => {:only => [:first_name, :last_name]}, :volunteers => {:only => [:user_id, :created_at]}}
   end
 
   def within
     box = params[:params][:box]
-
     bounds = [box[:sw][:lat], box[:sw][:lng], box[:ne][:lat], box[:ne][:lng]]
     @requests = Request.includes(:user, :volunteers).where(status: :unfulfilled).within_bounding_box(bounds)
     return render json: @requests, :include => {:user => {:only => [:first_name, :last_name]}, :volunteers => {:only => [:id]}}, :except => [:status, :updated_at]

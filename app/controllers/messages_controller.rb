@@ -3,7 +3,6 @@ class MessagesController < ApplicationController
 
   def create
     @volunteer = Volunteer.find_by_id(params[:id])
-  # add user authorization check (request creator or helper?)
     if @volunteer && @volunteer.user_id == @current_user.id || @volunteer && @volunteer.request.user_id == @current_user.id
         @message = Message.new(user_id: @current_user.id, content: params[:content], volunteer_id: @volunteer.id)
         if @message.valid? && @message.save

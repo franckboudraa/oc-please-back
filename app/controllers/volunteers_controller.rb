@@ -55,11 +55,19 @@ class VolunteersController < ApplicationController
     @volunteer = Volunteer.find_by_id(params[:id])
 
     if @request.user_id == @current_user.id || @volunteer.user_id == @current_user.id
+      if(params[:type] && params[:type] == 'decline')
+        @volunteer.status = 'declined'
+        if @volunteer.save
+          return render status: 200
+        else
+          return render status: 400
+        end
+      end
       @request.status = 'fulfilled'
       @volunteer.status = 'accepted'
 
       if @request.save && @volunteer.save
-        @otherVolunteers = Volunteer.where.not(id: params[:id])
+        @otherVolunteers = Volunteer.where(request_id: params[:request_id]).where.not(id: params[:id])
         @otherVolunteers.each do |vol|
           vol.status = 'declined'
           vol.save
