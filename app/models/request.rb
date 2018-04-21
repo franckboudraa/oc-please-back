@@ -3,6 +3,7 @@ class Request < ApplicationRecord
   has_many :volunteers, dependent: :destroy
   has_many :messages, through: :volunteers
   validates :title, length: {in: 2..64}
+  validates :address, length: {in: 10..255}
   validates :title, :description, :lat, :lng, :address, :status, :reqtype, :user_id, presence: true
   enum status: [:unfulfilled, :fulfilled]
   enum reqtype: [:task, :need]
