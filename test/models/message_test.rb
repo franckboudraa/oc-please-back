@@ -9,7 +9,6 @@ class MessageTest < ActiveSupport::TestCase
   end
 
   test "should be valid with all params correctly filled" do
-    
     assert @message.valid?
   end
 
