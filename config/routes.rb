@@ -5,10 +5,13 @@ Rails.application.routes.draw do
   get '/me/proposals', to: 'volunteers#proposals'
   post '/requests/within', to: 'requests#within'
   get '/homestats', to: 'application#stats'
+
   resources :users do
     resources :requests
   end
+
   resources :requests do
+    delete 'reset', to: 'requests#reset'
     resources :volunteers
   end
 

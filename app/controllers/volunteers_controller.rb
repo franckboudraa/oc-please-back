@@ -1,6 +1,6 @@
 class VolunteersController < ApplicationController
   before_action :volunteer_id_needed, only: [:update, :destroy]
-  before_action :request_id_needed, only: [:index, :create, :update]
+  before_action :request_id_needed, only: [:index, :create, :update, :reset]
 
   def index
     @request = Request.includes(:volunteers, :messages, :user).find_by_id(params[:request_id])

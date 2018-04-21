@@ -71,4 +71,21 @@ class RequestsController < ApplicationController
       return render status: 403
     end
   end
+
+  def reset
+    @request = Request.where(id: params[:request_id])
+
+    if @request && @request.user_id == @current_user.id
+      @volunteers = Volunteer.where(request_id: params[:request_id])
+
+      if @volunteers
+        @volunteers.destroy_all
+        return render status: 200
+      else
+        return render status: 400
+      end
+    else
+      return render status: 403
+    end
+  end
 end
