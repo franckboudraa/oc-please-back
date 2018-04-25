@@ -10,7 +10,7 @@ Front-End:
 * React
 * Redux (+Thunk)
 * React Router
-* Semantic UI (React version)
+* Semantic UI Less/Gulp + Semantic UI React
 * Hosted on AWS S3
 
 Don't forget to include React env variables (.env.local):
