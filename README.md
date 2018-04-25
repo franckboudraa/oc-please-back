@@ -1,24 +1,35 @@
-# README
+# Please - Backend
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Please - Frontend code available here: https://github.com/franckboudraa/oc-please-front
 
-Things you may want to cover:
+Use Filestack, Gravatar, Google Maps APIs.
+JWT authentication.
 
-* Ruby version
+Front-End:
 
-* System dependencies
+* React
+* Redux (+Thunk)
+* React Router
+* Semantic UI (React version)
+* Hosted on AWS S3
 
-* Configuration
+Don't forget to include React env variables (.env.local):
 
-* Database creation
+    REACT_APP_API_URL=https://your-please.backend.com/
+    REACT_APP_GMAP_KEY=your_googlemaps_api_key
+    REACT_APP_FILESTACK_KEY=your_filestack_api_key
 
-* Database initialization
+Back-End:
 
-* How to run the test suite
+* Ruby
+* Ruby on Rails
+* PostgreSQL
+* JWT, Geocoder
+* Hosted on Heroku
 
-* Services (job queues, cache servers, search engines, etc.)
+Don't forget to include Rails env variables (.env):
 
-* Deployment instructions
+    DATABASE_URL="postgres://user:password@host:port/db"
+    DATABASE_TEST_URL="postgres://user:password@host:port/db"
 
-* ...
+Preview: http://please.franckboudraa.me
