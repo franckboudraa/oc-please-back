@@ -6,6 +6,7 @@ Use Filestack, Gravatar, Google Maps APIs.
 JWT authentication.
 
 Wireframes: http://please.franckboudraa.me/please_wireframes.pdf
+
 Preview: http://please.franckboudraa.me
 
 Front-End:
