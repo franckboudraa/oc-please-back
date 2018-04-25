@@ -5,6 +5,9 @@ Please - Frontend code available here: https://github.com/franckboudraa/oc-pleas
 Use Filestack, Gravatar, Google Maps APIs.
 JWT authentication.
 
+Wireframes: http://please.franckboudraa.me/please_wireframes.pdf
+Preview: http://please.franckboudraa.me
+
 Front-End:
 
 * React
@@ -31,5 +34,3 @@ Don't forget to include Rails env variables (.env):
 
     DATABASE_URL="postgres://user:password@host:port/db"
     DATABASE_TEST_URL="postgres://user:password@host:port/db"
-
-Preview: http://please.franckboudraa.me
